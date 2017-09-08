@@ -18,14 +18,13 @@ class ArbolNavidad {
     
     method elementos(){return conjCosas}
     
-    method elementos(_objeto) {
-    	if ( self.capacidad() <= self.lugaresObjetos() ) {
-   		 //no compila  ):
-        	//throw new UserException("El arbol esta lleno")
-    	}else{
-   		 conjCosas.add(_objeto)
-    	}    
-	}
+    method agregar(_elemento) {
+   	 if ( self.capacidad() <= 0 ) {
+   		 throw new UserException ( "El arbol esta lleno" )
+   	 }    
+   	 conjCosas.add(_elemento)
+    }
+
     
 	method objSumanImp()=  	 
    	 conjCosas.filter({ imp => imp.estaColgado()})
@@ -50,8 +49,15 @@ class ArbolNavidad {
 	conjCosas.map({objeto => objeto.destinatario()})
    	 
 	}
+	
+	
     
 }
+
+class UserException inherits wollok.lang.Exception {
+constructor ( _mensaje ) = super ( _mensaje )
+}
+
 
 class Regalos{
     var conjdest = []
