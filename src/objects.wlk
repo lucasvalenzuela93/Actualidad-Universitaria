@@ -14,7 +14,7 @@ class ArbolNavidad {
 	
 	
 	method tamanioTronco()= tamTronco
-	method tamanioTronco(_tamanoTronco){ tamTronco= _tamanoTronco}
+	method tamanioTronco(_tamTronco){ tamTronco= _tamanoTronco}
 	
 	
 	method capacidad()= tamTronco*edadArbol
@@ -51,7 +51,7 @@ class ArbolNavidad {
 	method mapDestinatario()=conjCosas.flatMap({adorno1 => adorno1.destinatario()})
 
 	//filtrar solo un destinatario (Coleccion)
-	method colMenDest(_x)= self.mapDestinatario().filter({y => y == _x})
+	method colMenDest(x)= self.mapDestinatario().filter({y => y == _x})
 	
 	//cantidad de veces mencionado
 	method cantMismDest(_y)=self.colMenDest(_y).size()
@@ -84,7 +84,7 @@ class Regalos{
 }
 
 class Tarjetas{
-	var dest=[]
+	var dest
 	var imp=0
 	var ocupa=0
 	//estado 1=Colgado, para cualquier otro no lo esta
@@ -93,8 +93,8 @@ class Tarjetas{
 	method estaColgado(){return colgado==1} 
 	method estaColgado(_alpiso){colgado=_alpiso}
 	
-	method destinatario(_destinatario){if (dest.size()<1) {dest.add(_destinatario)}}
-	method destinatario()=dest
+	method destinatario(_destinatario){dest=_destinatario}
+	method destinatarios()=[dest]
 	
 	method importancia(_importancia){ imp = _importancia}
 	method importancia()= imp
@@ -105,7 +105,7 @@ class Tarjetas{
 class Adornos{
 	var peso=0
 	var cSup=0
-	var destinatario=null
+
 	
 	//estado 1=Colgado, para cualquier otro no lo esta
 	var colgado= 1
@@ -113,7 +113,7 @@ class Adornos{
 	method estaColgado(){return colgado==1} 
 	method estaColgado(_alpiso){colgado=_alpiso}
 	
-	method destinatario()= destinatario
+	method destinatarios()= []
 	
 	
 	method pesoBase(_peso){ peso=_peso }
@@ -124,18 +124,14 @@ class Adornos{
 	
 	method importancia()= cSup*peso
 	
-	method lugaresArbol(){
-		if (peso<=3)
-		 {return peso}
-			else
-				{return 3}
-	}
+	method lugaresArbol()=	3.min(peso)
+		 
 }
 
 class Figuras {
 
 	var conjAdornos=[]
-	var destinatario=null
+
 	//estado 1=Colgado, para cualquier otro no lo esta
 	var colgado= 1
 	
@@ -158,7 +154,7 @@ class Figuras {
 	
 }
 
-class EstrellaDeBelen {
+ object estrellaDeBelen {
     var ocupa = 1
     var imp = 10
     var conjDest = []
