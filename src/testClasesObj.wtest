@@ -21,7 +21,7 @@ describe "Test class "{
 	var pino 		= new ArbolNavidad()
 	
 	
-	method figurasColgadas() 
+	method figurasColgadas() {
 	//figura:: Colgado (imp 600)
 		bolaRoja.pesoBase(10)
 		bolaRoja.coefSup(10)
@@ -31,21 +31,20 @@ describe "Test class "{
 		bola2.coefSup(30)
 		bola3.pesoBase(4)
 		bola3.coefSup(1)
-		
+		}
 	//Test  Regalo
 	test "auto(R): No esta colgado"{
 		auto.estaColgado(3)
-		assert.equals(false,auto.estaColgado())
-	}
+		assert.equals(false,auto.estaCodestinatarios
 	
-	test "auto(R): 2 destinatarios diferentes"{
-		auto.destinatario("Juan")
+	test "auto(R): 2 destinatarioss diferentes"{
+	destinatariosatario("Juan")
 		auto.destinatario("Pedro")	
-		assert.equals(["Juan","Pedro"],auto.destinatario())	
+		adestinatarios(["Juan","Pedro"],auto.destinatario())	
 	}
 	
-	test "auto(R): 2 dest => Importancia = 4"{
-		auto.destinatario("Juan")
+	test "auto(R): 2destinatariosortancia = 4"{
+	destinatariosatario("Juan")
 		auto.destinatario("Pedro")	
 		assert.equals(4,auto.importancia())
 	}
@@ -59,10 +58,10 @@ describe "Test class "{
 	test "tNav (T): esta colgado"{
 		assert.equals(true,tarjNavidad.estaColgado())
 	}
-	test "tNav (T): se agrega juan y pedro solo queda 1 dest (juan)"{
-		tarjNavidad.destinatario("juan")
+	test "tNav (T): se agrega juan y pedro solo qudestinatariosjuan)"{
+		tarjNavidad.ddestinatarios"juan")
 		tarjNavidad.destinatario("Pedro")
-		assert.equals(["juan"],tarjNavidad.destinatario())
+		destinatarioss(["juan"],tarjNavidad.destinatario())
 	}
 	test "tNav (T): Importancia=10"{
 		tarjNavidad.importancia(10)
@@ -128,15 +127,13 @@ describe "Test class "{
 	}
 	//Fin test Figuras
 	
-	// Test EstrellaDeBelen(Sencilla, solo prueba de destinatarios) 
-	
-	test "Estrella (EDB): 5 dif destinatarios"{
-		estrella.destinatario("Juan")
-		estrella.destinatario("pedro")
-		estrella.destinatario("lucas")
-		estrella.destinatario("robert")
+	// Test Estreldestinatariosncilla, solo prueba de destinatarios)destinatarios"Estrella (EDB):destinatariosnatarios"{
+		estrelldestinatariosio("Juan")
+		estrelladestinatarioso("pedro")
+		estrelladestinatarioso("lucas")
+		estrella.destinatarios("robert")
 		estrella.destinatario("marvin")
-		assert.equals(["Juan","pedro","lucas","robert","marvin"],estrella.destinatario())
+		assert.equals(["Juan","pedro","destinatariosrt","marvin"],estrella.destinatario())
 	}
 	// Fin test EstrellaDeBelen
 	
@@ -351,32 +348,30 @@ describe "Test class "{
 		pino.elimVoluminosos()
 		
 		//no vol3
-		assert.equals(3,pino.elementos().size())
-		
+		assert.equals(3,pino.elementos()destinatarios
 	}
-	test "Pino (AN):Destinatarios Ordenados:: diferentes Articulos con destinatarios: J=4,P=2,S=1(Desordenados)"{
+	test "Pino (AN):Destinatarios Ordestinatariosferentes Articulos con destinatarios: J=4,P=2,S=1(Desordenados)"{
 		pino.vejez(30)
-		pino.tamanioTronco(50)
-		
-		//Regalo:: Auto=> 2 Destinatarios (Juan,Pedro)
-		auto.destinatario("Pedro")
+		pino.tamanioTrodestinatarios
+		//Regalo:: Auto=> 2 destinatarioss (Juan,Pedro)
+		destinatariostario("Pedro")
 		auto.destinatario("Juan")	
 		pino.elementos(auto)
 		
-		//Tarjeta:: tNavidad => 1 Dest (Simon)
+		//Tarjeta:: tNavidadestinatarios(Simon)
 		tarjNavidad.destinatario("Juan")
 		pino.elementos(tarjNavidad)
-		//EstrellaDeBelen:: estrella=>(Juan,Simon,Pedro,Pablo)
-		estrella.destinatario("Juan")
-		estrella.destinatario("Simon")
-		estrella.destinatario("Pedro")
+		//EstrellaDeBelen:: estrella=>(Jdestinatariosdro,Pablo)
+		estrelldestinatariosio("Juan")
+		estrelladestinatarioso("Simon")
+		estrelladestinatarioso("Pedro")
 		estrella.destinatario("Pedro") // lo repeti solo de prueba
 		pino.elementos(estrella)
 		//Menciones::
 		//Pedro=2 
 		//Juan=4
 		//Simon=1
-		assert.equals(["Juan","Pedro","Simon"],pino.destinatario())
+		assert.eqdestinatarios,"Pedro","Simon"],pino.destinatario())
 		}
 	//Fin testNavidad
 }

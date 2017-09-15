@@ -14,7 +14,7 @@ class ArbolNavidad {
 	
 	
 	method tamanioTronco()= tamTronco
-	method tamanioTronco(_tamTronco){ tamTronco= _tamanoTronco}
+	method tamanioTronco(_tamTronco){ tamTronco= _tamTronco}
 	
 	
 	method capacidad()= tamTronco*edadArbol
@@ -22,18 +22,18 @@ class ArbolNavidad {
 	method elementos()= conjCosas
 	
 	method elementos(_objeto) {
-        if ( self.capacidad() <= conjCosas.fold(0,{acum, lugar => acum + lugar.lugaresArbol() } ) ){
+        if ( self.capacidad() <= conjCosas.sum({lugar => lugar.lugaresArbol() } ) ){
 			
             throw new UserException ( "El arbol esta lleno" )
-        }else{
+        }
         	conjCosas.add(_objeto)
-        }  
+          
     }
 
     method objSumanImp()=   	
     	conjCosas.filter({ imp => imp.estaColgado()})
 
-	method importancia()= self.objSumanImp().fold(0,{acum, imp => acum + imp.importancia()})
+	method importancia()= self.objSumanImp().sum({imp => imp.importancia()})
     
     
     method promImportancia()= self.importancia() / self.objSumanImp().size()
@@ -51,17 +51,17 @@ class ArbolNavidad {
 	method mapDestinatario()=conjCosas.flatMap({adorno1 => adorno1.destinatario()})
 
 	//filtrar solo un destinatario (Coleccion)
-	method colMenDest(x)= self.mapDestinatario().filter({y => y == _x})
+	method colMenDest(destinatario1)= self.mapDestinatario().filter({destinatario2 =>  destinatario2 == destinatario1})
 	
 	//cantidad de veces mencionado
-	method cantMismDest(_y)=self.colMenDest(_y).size()
+	method cantMismDest(destinatario)=self.colMenDest(destinatario).size()
 	
 	//Condicion
-	method menMayor(_mayor,_menor)= self.cantMismDest(_mayor) >self.cantMismDest(_menor)
+	method menMayor(dest1,dest2)= self.cantMismDest(dest1)>self.cantMismDest(dest2)
 	//Sacar repetidos
 	method destSinRep()= self.mapDestinatario().asSet()
 	//Destinatarios!!! 
-	method destinatario() = self.destSinRep().sortedBy({x,y=>self.menMayor(x,y)})
+	method destinatarios() = self.destSinRep().sortedBy({dest1,dest2=>self.menMayor(dest1,dest2)})
 	
 	}	    
 	
@@ -138,7 +138,7 @@ class Figuras {
 	method estaColgado()= colgado==1 
 	method estaColgado(_alpiso){colgado=_alpiso}
 	
-	method destinatario()=destinatario
+	method destinatarios()=[]
 	
 	method adorno(_adorno){ 
 		conjAdornos.add(_adorno)
@@ -146,26 +146,26 @@ class Figuras {
 
 	method adorno()=conjAdornos
 	
-	// mapear los adornos por sus importancias
+	// cambiar importancia. max hace el map.
 	method mapImportancia()=conjAdornos.map({adorno1 => adorno1.importancia()})
 	method importancia()= self.mapImportancia().max()
-		
-	method lugaresArbol()= conjAdornos.fold(1,{acum,ocupar=>acum+ocupar.lugaresArbol()})
+	//----------------------------------------------------------------------
+	
+	method lugaresArbol()= conjAdornos.sum({ocupar=> ocupar.lugaresArbol()})
 	
 }
 
  object estrellaDeBelen {
-    var ocupa = 1
-    var imp = 10
+
     var conjDest = []
 	var colgado= 1
 	
 	method estaColgado()= colgado==1 
          
-    method lugaresArbol() = ocupa
-    method importancia()= imp
-    method destinatario() = conjDest
-    method destinatario(_destinatario){
+    method lugaresArbol() = 1
+    method importancia()= 10
+    method destinatarios() = conjDest
+    method destinatarios(_destinatario){
         conjDest.add(_destinatario)
     }
 
