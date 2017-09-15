@@ -32,7 +32,7 @@ describe "Test class "{
 		bola3.pesoBase(4)
 		bola3.coefSup(1)
 		}
-	//Test  Regalo
+	//Test  Regalos
 	test "auto(R): No esta colgado"{
 		auto.estaColgado(3)
 		assert.equals(false,auto.estaCodestinatarios
