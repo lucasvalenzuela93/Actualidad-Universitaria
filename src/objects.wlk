@@ -176,14 +176,15 @@ class Figuras {
 	//----------------------------------------------------------------------
 	
 	method lugaresArbol()= 1 + conjAdornos.sum({ocupar=> ocupar.lugaresArbol()})
-	
+
 }
+
 
  object estrellaDeBelen {
 
     var conjDest = []
 
-	//Es la estrella colgada arriba del pino.
+	//Es la estrella colgada arriba del pinos.
 	method estaColgado()= true 
          
     method lugaresArbol() = 1

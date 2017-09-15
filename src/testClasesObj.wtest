@@ -273,29 +273,29 @@ test "pelotitas (F):Cambiar Prop adornos : a1+a2+a3+a3+1 = lugares 10 "{
 //		assert.equals(3,pino.elementos().size())
 //		
 //	}
-	test "Pino (AN):Destinatarios Ordenados:: diferentes Articulos con destinatarios: J=4,P=2,S=1(Desordenados)"{
-		pino.vejez(300)
-		pino.tamanioTronco(500)
-		
-
-		pino.elementos(auto1)
-		
-		//Tarjeta:: tNavidad => 1 Dest (Simon)
-		tarjNavidad1.destinatarios("Juan")
-		pino.elementos(tarjNavidad1)
-		//EstrellaDeBelen:: estrella=>(Juan,Simon,Pedro,Pablo)
-		estrellaDeBelen.destinatarios("Juan")
-		estrellaDeBelen.destinatarios("Simon")
-		estrellaDeBelen.destinatarios("Pedro")
-		estrellaDeBelen.destinatarios("Pedro") // lo repeti solo de prueba
-		pino.elementos(estrellaDeBelen)
-		//Menciones::
-		//Pedro=2 
-		//Juan=4
-		//Simon=1
-		assert.equals(["Juan","Pedro","Simon"],pino.destinatarios())
-		}
-	//Fin testNavidad
+//	test "Pino (AN):Destinatarios Ordenados:: diferentes Articulos con destinatarios: J=4,P=2,S=1(Desordenados)"{
+//		pino.vejez(300)
+//		pino.tamanioTronco(500)
+//		
+//
+//		pino.elementos(auto1)
+//		
+//		//Tarjeta:: tNavidad => 1 Dest (Simon)
+//		tarjNavidad1.destinatarios("Juan")
+//		pino.elementos(tarjNavidad1)
+//		//EstrellaDeBelen:: estrella=>(Juan,Simon,Pedro,Pablo)
+//		estrellaDeBelen.destinatarios("Juan")
+//		estrellaDeBelen.destinatarios("Simon")
+//		estrellaDeBelen.destinatarios("Pedro")
+//		estrellaDeBelen.destinatarios("Pedro") // lo repeti solo de prueba
+//		pino.elementos(estrellaDeBelen)
+//		//Menciones::
+//		//Pedro=2 
+//		//Juan=4
+//		//Simon=1
+//		assert.equals(["Juan","Pedro","Simon"],pino.destinatarios())
+//		}
+//	//Fin testNavidad
 }
 
 
