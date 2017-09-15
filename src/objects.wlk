@@ -8,6 +8,11 @@ class ArbolNavidad {
 	var tamTronco=0
 	var conjCosas=[]
 
+	constructor(_edadArbol,_tamTronco,_conjCosas){
+		edadArbol=_edadArbol
+		tamTronco=_tamTronco
+		conjCosas=_conjCosas		
+	}
 
 	method vejez()= edadArbol
 	method vejez(_edadArbol){ edadArbol = _edadArbol}
@@ -22,7 +27,7 @@ class ArbolNavidad {
 	method elementos()= conjCosas
 	
 	method elementos(_objeto) {
-        if ( self.capacidad() <= conjCosas.sum({lugar => lugar.lugaresArbol() } ) ){
+        if ( self.capacidad() < conjCosas.sum({lugar => lugar.lugaresArbol() } ) ){
 			
             throw new UserException ( "El arbol esta lleno" )
         }
@@ -33,7 +38,7 @@ class ArbolNavidad {
     method objSumanImp()=   	
     	conjCosas.filter({ imp => imp.estaColgado()})
 
-	method importancia()= self.objSumanImp().sum({imp => imp.importancia()})
+	method importancia()= self.objSumanImp().sum({x=>x.importancia()})
     
     
     method promImportancia()= self.importancia() / self.objSumanImp().size()
@@ -48,7 +53,7 @@ class ArbolNavidad {
 	
 	
 	// mapeo de los articulos a destinatarios
-	method mapDestinatario()=conjCosas.flatMap({adorno1 => adorno1.destinatario()})
+	method mapDestinatario()=conjCosas.flatMap({adorno1 => adorno1.destinatarios()})
 
 	//filtrar solo un destinatario (Coleccion)
 	method colMenDest(destinatario1)= self.mapDestinatario().filter({destinatario2 =>  destinatario2 == destinatario1})
@@ -66,49 +71,63 @@ class ArbolNavidad {
 	}	    
 	
 class Regalos{
-	var conjdest = []
-	var ocupa = 1
+	var conjdest
 	//estado 1=Colgado, para cualquier otro no lo esta
-	var colgado= 1
+	var colgado
+	
+	constructor(_colgado,_conjdest){
+		colgado=_colgado
+		conjdest=_conjdest
+	}
 	
 	method estaColgado(){return colgado==1} 
 	method estaColgado(_alpiso){colgado=_alpiso}
 		
-	method destinatario(_destinatario){ conjdest.add(_destinatario)}
+	method destinatarios(_destinatario){ conjdest.add(_destinatario)}
 	
-	method destinatario(){ return conjdest}
+	method destinatarios(){ return conjdest}
 	
 	method importancia()= conjdest.size()*2
 		
-	method lugaresArbol()= ocupa 
+	method lugaresArbol()= 1
 }
 
 class Tarjetas{
-	var dest
-	var imp=0
-	var ocupa=0
+	var destinatario
+	var importancia
+	var colgado
 	//estado 1=Colgado, para cualquier otro no lo esta
-	var colgado= 1
+	constructor (_destinatario,_importancia,_colgado){
+		destinatario=_destinatario
+		importancia=_importancia
+		colgado=_colgado
+	} 
+
+	
 	
 	method estaColgado(){return colgado==1} 
 	method estaColgado(_alpiso){colgado=_alpiso}
 	
-	method destinatario(_destinatario){dest=_destinatario}
-	method destinatarios()=[dest]
+	method destinatarios(_destinatario){destinatario=_destinatario}
+	method destinatarios()=[destinatario]
 	
-	method importancia(_importancia){ imp = _importancia}
-	method importancia()= imp
+	method importancia(_importancia){ importancia = _importancia}
+	method importancia()= importancia
 
-	method lugaresArbol()=ocupa
+	method lugaresArbol()=0
 } 
 
 class Adornos{
-	var peso=0
-	var cSup=0
-
-	
+	var peso
+	var cSup
+	var colgado
 	//estado 1=Colgado, para cualquier otro no lo esta
-	var colgado= 1
+	
+	constructor(_colgado,_peso,_cSup){
+		colgado=_colgado
+		peso=_peso
+		cSup=_cSup
+	}
 	
 	method estaColgado(){return colgado==1} 
 	method estaColgado(_alpiso){colgado=_alpiso}
@@ -130,10 +149,14 @@ class Adornos{
 
 class Figuras {
 
-	var conjAdornos=[]
-
+	var conjAdornos
+	var colgado
 	//estado 1=Colgado, para cualquier otro no lo esta
-	var colgado= 1
+	
+	constructor(_colgado,_conjAdornos){
+		conjAdornos=_conjAdornos
+		colgado=_colgado
+	}
 	
 	method estaColgado()= colgado==1 
 	method estaColgado(_alpiso){colgado=_alpiso}
@@ -146,21 +169,22 @@ class Figuras {
 
 	method adorno()=conjAdornos
 	
-	// cambiar importancia. max hace el map.
+	// cambiar importancia. max hace el map.(Punto por hacer)
 	method mapImportancia()=conjAdornos.map({adorno1 => adorno1.importancia()})
 	method importancia()= self.mapImportancia().max()
+		
 	//----------------------------------------------------------------------
 	
-	method lugaresArbol()= conjAdornos.sum({ocupar=> ocupar.lugaresArbol()})
+	method lugaresArbol()= 1 + conjAdornos.sum({ocupar=> ocupar.lugaresArbol()})
 	
 }
 
  object estrellaDeBelen {
 
     var conjDest = []
-	var colgado= 1
-	
-	method estaColgado()= colgado==1 
+
+	//Es la estrella colgada arriba del pino.
+	method estaColgado()= true 
          
     method lugaresArbol() = 1
     method importancia()= 10
@@ -170,7 +194,3 @@ class Figuras {
     }
 
 }
-
-
-
-
