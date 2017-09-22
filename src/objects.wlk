@@ -48,9 +48,9 @@ class ArbolNavidad {
     
     method cantMayorImp() = self.objMayorImp().size()
 	
-	method elimVoluminosos()=
-			conjCosas.forEach({objeto => if (objeto.lugaresArbol() > 5 ){conjCosas.remove(objeto)}})
-	
+	method elimVoluminosos(){ 
+		conjCosas = self.elementos().filter({objeto=> objeto.lugaresArbol() < 5})
+		}
 	
 	// mapeo de los articulos a destinatarios
 	method mapDestinatario()=conjCosas.flatMap({adorno1 => adorno1.destinatarios()})
@@ -172,7 +172,7 @@ class Figuras {
 	// cambiar importancia. max hace el map.(Punto por hacer)
 	method mapImportancia()=conjAdornos.map({adorno1 => adorno1.importancia()})
 	method importancia()= self.mapImportancia().max()
-		
+	//method importancia()= conjCosas.max({adorno1=> adorno1.importancia})	
 	//----------------------------------------------------------------------
 	
 	method lugaresArbol()= 1 + conjAdornos.sum({ocupar=> ocupar.lugaresArbol()})

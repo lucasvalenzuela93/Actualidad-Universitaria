@@ -12,13 +12,8 @@ describe "Test class "{
 	var bola2		= new Adornos(0,1,10)
 	var bola3		= new Adornos(0,3,50)
 	var pelotitas	= new Figuras(0,[bolaRoja,bola1,bola2,bola3])
-//	var noVol1		= new Figuras()
-//	var noVol2		= new Figuras()
-//	var noVol3		= new Figuras()
-//	var vol1		= new Figuras()
-//	var vol2		= new Figuras()
-//
-	var pino 		= new ArbolNavidad(3,5,[auto1,tarjNavidad1])
+
+	var pino 		= new ArbolNavidad(10,10,[auto1,tarjNavidad1])
 	var pino2		= new ArbolNavidad(1,100,[])
 
 	method pelotita600imp(){
@@ -43,6 +38,16 @@ describe "Test class "{
 		bola3.coefSup(1)
 	}
 	
+	method colgarBolaRoja(){
+		bolaRoja.pesoBase(10)
+		bolaRoja.coefSup(10)
+		pino.elementos(bolaRoja)
+	
+	}// 100 Imp
+	method colgados(){
+		
+	}
+
 
 	// nomenclatura test -> nombre(clase/objeto): descripcion 
 	//Test  Regalo 
@@ -121,14 +126,11 @@ test "pelotitas (F):Cambiar Prop adornos : a1+a2+a3+a3+1 = lugares 10 "{
 	
 	// Test ArbolNavidad
 	test "Pino (AN): e:3 t:5  cap=15"{
-		pino.vejez(10)
-		pino.tamanioTronco(10)
+
 		assert.equals(100,pino.capacidad())
 	}
-	test "Pino (AN): lug=18 capArbol=150. Puede agregar"{
-		pino.vejez(30)
-		pino.tamanioTronco(50)
-		
+	test "Pino (AN): lug=18 capArbol=100. Puede agregar"{
+	
 	
 		//bolaRoja 	1 lugar
 		bolaRoja.pesoBase(1)
@@ -169,133 +171,75 @@ test "pelotitas (F):Cambiar Prop adornos : a1+a2+a3+a3+1 = lugares 10 "{
 	
 	}
 	
-//	test "pino(AN) promImp 82->5 obj->4 obj "{
-//		pino.vejez(30)
-//		pino.tamanioTronco(50)
+	test "pino(AN) promImp 82->5 obj->4 obj "{
+
+
+		//100 Imp
+		self.colgarBolaRoja()
+		self.colgarBolaRoja()
+		self.colgarBolaRoja()
+		
+//		figura:: Colgado (imp 100)
+		pelotitas.estaColgado()
+		bolaRoja.pesoBase(10)
+		bolaRoja.coefSup(10)
+		bola1.pesoBase(5)
+		bola1.coefSup(5)
+		bola2.pesoBase(2)
+		bola2.coefSup(3)
+		bola3.pesoBase(4)
+		bola3.coefSup(1)
+		
+		pelotitas.adorno(bolaRoja)
+		pelotitas.adorno(bola1)
+		pelotitas.adorno(bola2)
+		pelotitas.adorno(bola3)
+		
+		pino.elementos(pelotitas)
+	
+		// estrella 10 imp
+		pino.elementos(estrellaDeBelen)
+	
+		
+		assert.equals(4,pino.cantMayorImp())
 //		
-//
-//		
-//		//BolaRoja colgada (100 imp)
-//		bolaRoja.pesoBase(10)
-//		bolaRoja.coefSup(10)
-//		pino.elementos(bolaRoja)
-//			
-//		//BolaRoja colgada (100 imp)
-//		bolaRoja.pesoBase(10)
-//		bolaRoja.coefSup(10)
-//		pino.elementos(bolaRoja)
-//		
-//		//BolaRoja colgada (100 imp)
-//		bolaRoja.pesoBase(10)
-//		bolaRoja.coefSup(10)
-//		pino.elementos(bolaRoja)
-//		
-//		//figura:: Colgado (imp 100)
-//		bolaRoja.pesoBase(10)
-//		bolaRoja.coefSup(10)
-//		bola1.pesoBase(5)
-//		bola1.coefSup(5)
-//		bola2.pesoBase(2)
-//		bola2.coefSup(3)
-//		bola3.pesoBase(4)
-//		bola3.coefSup(1)
-//		
-//		pelotitas.adorno(bolaRoja)
-//		pelotitas.adorno(bola1)
-//		pelotitas.adorno(bola2)
-//		pelotitas.adorno(bola3)
-//		
-//		pino.elementos(pelotitas)
-//	
-//		// estrella 10 imp
-//		pino.elementos(estrellaDeBelen)
-//	
-//		assert.equals(4,pino.cantMayorImp())
-//		
-//	}
-//	test "Pino(AN): obj 5, voluminosos 2 => 3objNoVol"{
-//		
-//		pino.vejez(30)
-//		pino.tamanioTronco(50)
-//		
-//		bolaRoja.pesoBase(1)
-//		bolaRoja.coefSup(1)
-//		bola1.pesoBase(2)
-//		bola1.coefSup(2)
-//		bola2.pesoBase(3)
-//		bola2.coefSup(3)
-//		bola3.pesoBase(4)
-//		bola3.coefSup(1)
-//		
-//		vol1.adorno(bolaRoja)
-//		vol1.adorno(bola1)
-//		vol1.adorno(bola2)
-//		vol1.adorno(bola3)
-//		pino.elementos(vol1)
-//		//obj vol1
-//				bolaRoja.pesoBase(1)
-//		bolaRoja.coefSup(1)
-//		bola1.pesoBase(2)
-//		bola1.coefSup(2)
-//		bola2.pesoBase(3)
-//		bola2.coefSup(3)
-//		bola3.pesoBase(4)
-//		bola3.coefSup(1)
-//		
-//		vol2.adorno(bolaRoja)
-//		vol2.adorno(bola1)
-//		vol2.adorno(bola2)
-//		vol2.adorno(bola3)
-//		
-//		pino.elementos(vol2)
-//		//obj2
-//		
-//		bolaRoja.coefSup(1)
-//		bolaRoja.pesoBase(1)
-//		noVol1.adorno(bolaRoja)
-//		pino.elementos(noVol1)
-//		// no vol1
-//		
-//		bolaRoja.coefSup(1)
-//		bolaRoja.pesoBase(1)
-//		noVol2.adorno(bolaRoja)
-//		pino.elementos(noVol2)
-//		//no vol2
-//		
-//		bolaRoja.coefSup(1)
-//		bolaRoja.pesoBase(1)
-//		noVol3.adorno(bolaRoja)
-//		pino.elementos(noVol3)
-//	
-//		pino.elimVoluminosos()
-//		
-//		//no vol3
-//		assert.equals(3,pino.elementos().size())
-//		
-//	}
-//	test "Pino (AN):Destinatarios Ordenados:: diferentes Articulos con destinatarios: J=4,P=2,S=1(Desordenados)"{
-//		pino.vejez(300)
-//		pino.tamanioTronco(500)
-//		
-//
-//		pino.elementos(auto1)
-//		
-//		//Tarjeta:: tNavidad => 1 Dest (Simon)
-//		tarjNavidad1.destinatarios("Juan")
-//		pino.elementos(tarjNavidad1)
-//		//EstrellaDeBelen:: estrella=>(Juan,Simon,Pedro,Pablo)
-//		estrellaDeBelen.destinatarios("Juan")
-//		estrellaDeBelen.destinatarios("Simon")
-//		estrellaDeBelen.destinatarios("Pedro")
-//		estrellaDeBelen.destinatarios("Pedro") // lo repeti solo de prueba
-//		pino.elementos(estrellaDeBelen)
-//		//Menciones::
-//		//Pedro=2 
-//		//Juan=4
-//		//Simon=1
-//		assert.equals(["Juan","Pedro","Simon"],pino.destinatarios())
-//		}
-//	//Fin testNavidad
+	}
+	test "Pino2(AN): obj 5, voluminosos 2 => 3objNoVol"{
+		
+		self.pelotitas10Lugares()
+		pino2.elementos(pelotitas)
+		pino2.elementos(pelotitas)
+
+		pino2.elementos(tarjNavidad1)
+		pino2.elementos(bolaRoja)
+		pino2.elementos(auto1)
+		
+		pino2.elimVoluminosos()		
+		assert.equals(3,pino2.elementos().size())
+		
+	}
+	test "Pino (AN):Destinatarios Ordenados:: diferentes Articulos con destinatarios: J=4,P=2,S=1(Desordenados)"{
+
+		
+		//auto-> Juan, Pedro
+		pino.elementos(auto1)
+		
+		//Tarjeta:: tNavidad => 1 Dest (Simon)
+		tarjNavidad1.destinatarios("Juan")
+		pino.elementos(tarjNavidad1)
+		//EstrellaDeBelen:: estrella=>(Juan,Simon,Pedro,Pablo)
+		estrellaDeBelen.destinatarios("Juan")
+		estrellaDeBelen.destinatarios("Simon")
+		estrellaDeBelen.destinatarios("Pedro")
+		estrellaDeBelen.destinatarios("Pedro") // lo repeti solo de prueba
+		pino.elementos(estrellaDeBelen)
+		//Menciones::
+		//Pedro=2 
+		//Juan=3
+		//Simon=1
+		assert.equals(["Juan","Pedro","Simon"],pino.destinatarios())
+		}
+	//Fin testNavidad
 }
 
 
