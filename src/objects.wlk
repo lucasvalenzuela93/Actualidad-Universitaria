@@ -34,13 +34,13 @@ class ArbolNavidad {
         	conjCosas.add(_objeto)
           
     }
-
+	// Importancia
     method objSumanImp()=   	
     	conjCosas.filter({ imp => imp.estaColgado()})
 
 	method importancia()= self.objSumanImp().sum({x=>x.importancia()})
-    
-    
+
+    //Promedio
     method promImportancia()= self.importancia() / self.objSumanImp().size()
     
     method objMayorImp()=
@@ -48,6 +48,7 @@ class ArbolNavidad {
     
     method cantMayorImp() = self.objMayorImp().size()
 	
+
 	method elimVoluminosos(){ 
 		conjCosas = self.elementos().filter({objeto=> objeto.lugaresArbol() < 5})
 		}
@@ -169,11 +170,9 @@ class Figuras {
 
 	method adorno()=conjAdornos
 	
-	// cambiar importancia. max hace el map.(Punto por hacer)
+
 	method mapImportancia()=conjAdornos.map({adorno1 => adorno1.importancia()})
 	method importancia()= self.mapImportancia().max()
-	//method importancia()= conjCosas.max({adorno1=> adorno1.importancia})	
-	//----------------------------------------------------------------------
 	
 	method lugaresArbol()= 1 + conjAdornos.sum({ocupar=> ocupar.lugaresArbol()})
 
@@ -195,3 +194,4 @@ class Figuras {
     }
 
 }
+
