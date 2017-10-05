@@ -1,0 +1,75 @@
+import  Class_Armas.*
+import  Class_Minion.*
+
+describe "Test Minions"{
+
+var arma1= new Arma("Pistola",5)
+var arma2=new Arma("Bazooka",10)
+var steve = new Minion("steve","Amarillo",0, arma1)
+var jon = new Minion ("jon","Amarillo",10,arma2)
+
+
+method agregarArmas(){
+	5.times({steve.agregarArmas(arma1)})
+}
+test "steve tiene 0 armas" {
+	steve.armas().isEmpty()
+	assert.that(true)
+}
+test "steve tiene una bazooka"{
+	steve.agregarArmas(arma2)
+	steve.tieneArma("Bazooka")
+	assert.that(true)
+}
+test "se le agrega 5 armas a steve, que ya tenia 1 arma"{
+		self.agregarArmas()
+		assert.equals(steve.armas().size(),6)
+}
+test "se le agrega 15 bananas a steve y come 5 "{
+	steve.agregarBananas(15)
+	5.times({steve.comerBananas()})
+	assert.equals(steve.cantBananas(),10)
+}
+test "se le agregan 5 armas a steve y es peligroso"{
+	self.agregarArmas()
+	steve.peligroso()
+	assert.that(true)
+}
+test "Steve es de color amarillo"{
+		assert.equals(steve.color(),"Amarillo")
+}
+test "steve toma el suero y cambia su color"{
+	steve.beberSuero()
+
+	assert.equals("Violeta",steve.color())
+}
+test "Steve toma 2 veces el suero y es amarillo"{
+	2.times({steve.beberSuero()})
+	assert.equals("Amarillo",steve.color())
+}
+test "Jon toma el suero y se queda sin armas"{
+	jon.beberSuero()
+	assert.equals(jon.armas(),[])
+}
+test "Jon toma el suero y tiene 9 bananas"{
+	jon.beberSuero()
+	assert.equals(jon.cantBananas(),9)
+}
+test "steve toma el suero y si le damos 5 armas se queda con ellas"{
+	steve.beberSuero()
+	self.agregarArmas()
+	assert.equals(steve.armas(),[arma1,arma1,arma1,arma1,arma1])
+}
+test "el nivel de concentracion de Jon es 20 "{
+	assert.equals(jon.nivelConcentracion(),20)
+}
+test "jon toma en suero y su nivel de concentracion es 9"{
+		jon.beberSuero()
+		assert.equals(jon.nivelConcentracion(),9)
+}
+test "jon tiene una pistola en su armamento"{
+	jon.tieneArma("pistola")
+	assert.that(true)
+}
+}
+
