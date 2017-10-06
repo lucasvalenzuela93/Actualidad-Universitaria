@@ -1,10 +1,10 @@
 import Objetos_Robar.*
 class Ciudad {
 	var temperatura
-	var tiene
+	var maravillas
 	constructor(c,_tiene){
 		temperatura=c
-		tiene=_tiene
+		maravillas=_tiene
 	}
 	
 	method temperatura()=temperatura
@@ -13,10 +13,17 @@ class Ciudad {
 	temperatura-=t
 	}
 	
-	method tiene()=tiene
+	method tiene()=maravillas
 
-	method sacarObjeto(_tiene){
-	tiene.remove(_tiene)
+	method seRobaron(_tiene){
+	maravillas.remove(_tiene)
+	}
+	method mostrar(algoQueTiene){
+		if(maravillas.contains(algoQueTiene)){
+			return algoQueTiene
+		}else{
+			return null
+		}
 	}
 
 }

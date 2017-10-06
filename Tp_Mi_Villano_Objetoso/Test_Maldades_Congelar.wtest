@@ -1,0 +1,67 @@
+import Class_Villanos.*
+import Class_Armas.*
+import Class_Minion.*
+import Class_Maldades.*
+import Class_Ciudad.*
+
+
+describe "Test Villanos"{
+		var rosario = new Ciudad(30,[])
+		var gru 	= new Villano(rosario)	
+		var congelar = new Congelar (gru)
+	fixture{	
+		gru.nuevoMinion("Steve")
+		gru.nuevoMinion("Marco")
+		gru.nuevoMinion("Polo")
+}
+	method alimentarMinions(){
+		gru.alimentar("Steve",490)
+		gru.alimentar("Marco",500)
+		gru.alimentar("Polo",10)
+	}
+	
+test "Si se alimentan a los minions, debe tener solo 2 minions reclutados" {
+	self.alimentarMinions()
+	congelar.reclutarMinions()
+	
+	assert.equals(2,congelar.minionsAsignados().size())
+}
+test "Si se cambia el nivel a 5 deben ser 3 minions"{
+	self.alimentarMinions()
+	
+	congelar.reclutarMinions(5)
+	assert.equals(3,congelar.minionsAsignados().size())
+}
+
+test "si se alimenta a los minions y se realiza la maldad, la temperatura de la ciudad es 0 "{
+	self.alimentarMinions()
+	congelar.reclutarMinions()
+	congelar.realizarMaldad()
+	assert.equals(0,rosario.temperatura())
+
+}test "si se alimenta a los minions y se realiza la maldad, Marco tiene 520 bananas "{
+	self.alimentarMinions()
+	congelar.reclutarMinions()
+	congelar.realizarMaldad()
+	assert.equals(520,gru.buscarMinion("Marco").cantBananas())
+
+}
+test "Si pedimos hacer una maldad sin minions debe salir error"{
+	assert.throwsException({congelar.realizarMaldad()})
+}
+test "si se realiza la maldad con minions alimentados pero el requisito es de 600 debe salir un error"{
+		assert.throwsException({
+			self.alimentarMinions()
+			congelar.reclutarMinions(600)
+			congelar.realizarMaldad()
+		})
+}
+test "Si pedimos que el requisito sea de 10,Steve debe tener una maldad hecha"{
+	congelar.reclutarMinions(10)
+	congelar.realizarMaldad()
+	assert.equals(1,gru.buscarMinion("Steve").mostrarMaldades())
+}
+
+
+
+}

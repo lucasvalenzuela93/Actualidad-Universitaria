@@ -17,11 +17,6 @@ class Villano {
 	//Muestra ciudad donde vive 
 	method viveEn()=ciudad
 	
-	//Cambio de ciudad
-	method seMudo(_ciudad){	
-		ciudad=_ciudad
-	}
-	
 	//Muestra todos los minions que trabajan   
 	method mostrarMinions()= ejercitoMinion
 
@@ -35,17 +30,36 @@ class Villano {
 		return self.mostrarMinions().filter({minion=> minion.nivelConcentracion() > nivel})
 	}
 	
-	//Este es util para cuando se hace una maldad congelar
-	method requisitosCongelar(nivelConcentracion){
+	//Muestra una coleccion de minions peligroso... Cuidado!!
+	method minionsPeligrosos(){
+		return self.mostrarMinions().filter({minion=> minion.peligroso()})
+	}
+	
+	
+	//Este es util para cuando se hace una maldad del tipo congelar
+	/** con el intersection no salia ,entonces se improviso con un filter =) */
+	/* 
+		self.minionsConcentracionMayor(x).intersection({self.minionsConArma("rayoCongelante")})
+ 	*/
+	method requisitosCongelarConNivel(nivelConcentracion){
 		var cumplidores=[]
+		
 		cumplidores= self.minionsConcentracionMayor(nivelConcentracion)
 		cumplidores.filter({x=> self.minionsConArma("rayoCongelante").contains(x)})
-		
+		return cumplidores
+	}
+	
+	//idem pero para las maldades del tipo Robar
+	
+	method requisitosRobarConNivel(nivelConcentracion){
+		var cumplidores=[]
+		cumplidores= self.minionsConcentracionMayor(nivelConcentracion)
+		cumplidores.filter({x=> self.minionsPeligrosos().contains(x)})
 		return cumplidores
 	}
 	
 	//Muestra un minion
-	/** Busca al minion mediante el nombre(String)*/
+	/** Busca al minion mediante el nombre(Un String)*/
 	method buscarMinion(minion)= (self.mostrarMinions().filter({_minion=> _minion.nombre()==minion})).first()
 	
 	// Saber si un minion ya existe
@@ -96,6 +110,9 @@ class Villano {
 	method aplicarSuero(minion){
 		return (self.buscarMinion(minion)).beberSuero()
 	}
+	method minionMasUtil()=	self.mostrarMinions().max({x=> x.mostrarMaldades()})
+	method minionInutiles()=self.mostrarMinions().filter({x=> x.mostrarMaldades() < 1})
+	
 }
 
 

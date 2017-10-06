@@ -1,0 +1,122 @@
+import Class_Villanos.*
+import Class_Armas.*
+import Class_Minion.*
+import Class_Maldades.*
+import Class_Ciudad.*
+import Objetos_Robar.*
+
+
+describe "Test Villanos"{
+	
+		const rayoEncogedor = new Arma("rayo para enconger",100)
+		
+		
+		var rosario 		= new Ciudad(30,[laLuna])
+		var buenosAires		= new Ciudad(30,[piramides])
+		var salta 		    = new Ciudad (30,[sueroMutante])
+		var ciudadFuria 	= new Ciudad (30,[laLuna,piramides,sueroMutante])
+		
+
+		var gru 		= new Villano(rosario)
+		var guason		= new Villano(buenosAires)
+		var venom		= new Villano(salta)
+		var ajax		= new Villano(ciudadFuria)
+		
+		
+		var robarLuna	 	 = new Robar (gru)
+		var robarPiramides 	 = new Robar (guason)
+		var robarSuero 		 = new Robar (venom)
+		var robarTodo	 	 = new Robar (ajax)
+		
+		
+		
+	fixture{	
+		
+		gru.nuevoMinion("Steve")
+		gru.nuevoMinion("Marco")
+		gru.nuevoMinion("Polo")
+		
+		venom.nuevoMinion("Steve")
+		venom.nuevoMinion("Marco")
+		venom.nuevoMinion("Polo")
+		
+		guason.nuevoMinion("Steve")
+		guason.nuevoMinion("Marco")
+		guason.nuevoMinion("Polo")
+		
+		ajax.nuevoMinion("Steve")
+		ajax.nuevoMinion("Marco")
+		ajax.nuevoMinion("Polo")
+		}
+		
+		
+	method solo2peligrosos(villano){
+		2.times({villano.otorgarArma("Steve",rayoEncogedor)})
+		2.times({villano.otorgarArma("Marco",rayoEncogedor)})
+		}
+	method alimentarSteveMarco(villano){
+		villano.alimentar("Steve",200)
+		villano.alimentar("Marco",200)
+		
+	}
+
+test "Gru acciona su maldad, robar la luna, por ende Steve que tenia 3 armas ahora tiene 4"{
+	self.solo2peligrosos(gru)
+	robarLuna.realizarMaldad()
+	
+	assert.equals(4,gru.buscarMinion("Steve").armas().size())
+}
+test "Gru acciona su maldad, robar la luna, por ende la temperatura en Rosario baja"{
+	self.solo2peligrosos(gru)
+	robarLuna.realizarMaldad()
+	
+	assert.equals(15,rosario.temperatura())
+}
+test "Gru acciona su maldad, robar la luna, por ende rosario no tiene luna"{
+	self.solo2peligrosos(gru)
+	robarLuna.realizarMaldad()
+	
+	assert.equals([],rosario.tiene())
+}
+
+test "El Guason hace su maldad,robar las piramides,por ende Buenos Aires se quedo sin la piramide"{
+	self.solo2peligrosos(guason)
+	robarPiramides.realizarMaldad()
+	
+	assert.equals([],buenosAires.tiene())
+}
+test "El Guason hace su maldad, entonce steve tiene 1 maldad hecha"{
+		self.solo2peligrosos(guason)
+		robarPiramides.realizarMaldad()
+		assert.equals(1,guason.buscarMinion("Steve").mostrarMaldades())
+	
+}
+test "venom hace su maldad, robar Suero, por ende Steve es violeta"{
+		self.solo2peligrosos(venom)
+		self.alimentarSteveMarco(venom)
+		robarSuero.realizarMaldad()
+		assert.equals("Violeta",venom.buscarMinion("Steve").color())
+	
+}
+test "ajax hace su maldad, se roba todo los items"{
+		self.solo2peligrosos(ajax)
+		self.alimentarSteveMarco(ajax)
+		robarTodo.realizarMaldad()
+		assert.equals([],ciudadFuria.tiene())
+	
+}
+test "El Guason hace su maldad, entonce Polo tiene 0 maldad hecha,por ende es inutil"{
+		self.solo2peligrosos(guason)
+		robarPiramides.realizarMaldad()
+		assert.equals([guason.buscarMinion("Polo")],guason.minionInutiles())
+	
+}
+test "El Guason se condiciono,solo steve puede hacer la maldad, entonces steve es el unico util"{
+		2.times({guason.otorgarArma("Steve",rayoEncogedor)})
+		robarPiramides.realizarMaldad()
+		assert.equals(guason.buscarMinion("Steve"),guason.minionMasUtil())
+	
+}
+
+
+}

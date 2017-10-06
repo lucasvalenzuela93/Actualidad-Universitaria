@@ -13,13 +13,16 @@ fixture{
 
 }
 	
+test "Si se agrega otra vez a allon debe aparecer un error"{
+			assert.throwsException({ gru.nuevoMinion("allon") })
+}
 
 test "Gru tiene a Jon,ny,Allon en su ejercito de minions, por ende allon trabaja para gru" {
 
 	assert.equals((gru.mostrarMinions()).size(),3)
 }
 
-test "Allon tiene un chiche nuevo una BOMBA! BOOM!"{
+test "Allon tiene un chiche nuevo una BOMBA!... CUIDADO ALLON!"{
 	gru.otorgarArma("allon",bomba)
 	assert.equals((gru.buscarMinion("allon")).armas().size(),2)
 }
