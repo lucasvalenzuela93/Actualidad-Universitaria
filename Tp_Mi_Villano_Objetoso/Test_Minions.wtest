@@ -5,8 +5,8 @@ describe "Test Minions"{
 
 var arma1= new Arma("Pistola",5)
 var arma2=new Arma("Bazooka",10)
-var steve = new Minion("steve","Amarillo",0, arma1)
-var jon = new Minion ("jon","Amarillo",10,arma2)
+var steve = new Minion(0)
+var jon = new Minion (10)
 
 
 method agregarArmas(){
@@ -23,12 +23,12 @@ test "steve tiene una bazooka"{
 }
 test "se le agrega 5 armas a steve, que ya tenia 1 arma"{
 		self.agregarArmas()
-		assert.equals(steve.armas().size(),6)
+		assert.equals(steve.armas().size(),5)
 }
 test "se le agrega 15 bananas a steve y come 5 "{
-	steve.agregarBananas(15)
-	5.times({steve.comerBananas()})
-	assert.equals(steve.cantBananas(),10)
+	steve.bananas(15)
+	5.times({steve.comerBanana()})
+	assert.equals(steve.bananas(),10)
 }
 test "se le agregan 5 armas a steve y es peligroso"{
 	self.agregarArmas()
@@ -53,15 +53,15 @@ test "Jon toma el suero y se queda sin armas"{
 }
 test "Jon toma el suero y tiene 9 bananas"{
 	jon.beberSuero()
-	assert.equals(jon.cantBananas(),9)
+	assert.equals(jon.bananas(),9)
 }
 test "steve toma el suero y si le damos 5 armas se queda con ellas"{
 	steve.beberSuero()
 	self.agregarArmas()
 	assert.equals(steve.armas(),[arma1,arma1,arma1,arma1,arma1])
 }
-test "el nivel de concentracion de Jon es 20 "{
-	assert.equals(jon.nivelConcentracion(),20)
+test "el nivel de concentracion de Jon es 10 "{
+	assert.equals(jon.nivelConcentracion(),10)
 }
 test "jon toma en suero y su nivel de concentracion es 9"{
 		jon.beberSuero()

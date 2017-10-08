@@ -1,7 +1,9 @@
 object laLuna {
 
 }
+
 //Asumimos que las piramides son unicas, pero podria ser una clase tranquilamente
+
 object piramides{
 	
 	var altura=100
@@ -12,5 +14,6 @@ object piramides{
 		altura=_altura
 	}
 }
+
 object sueroMutante{
 }

@@ -3,24 +3,25 @@ import Class_Armas.*
 import Class_Minion.*
 import Class_Maldades.*
 import Class_Ciudad.*
+import Class_Robar.*
 import Objetos_Robar.*
 
 
 describe "Test Villanos"{
 	
-		const rayoEncogedor = new Arma("rayo para enconger",100)
+		const rayoEncogedor  = new Arma("rayo para enconger",100)
+
 		
-		
-		var rosario 		= new Ciudad(30,[laLuna])
-		var buenosAires		= new Ciudad(30,[piramides])
-		var salta 		    = new Ciudad (30,[sueroMutante])
-		var ciudadFuria 	= new Ciudad (30,[laLuna,piramides,sueroMutante])
+		var rosario 		 = new Ciudad(30,[laLuna])
+		var buenosAires		 = new Ciudad(30,[piramides])
+		var salta 		     = new Ciudad (30,[sueroMutante])
+		var ciudadFuria 	 = new Ciudad (30,[laLuna,piramides,sueroMutante])
 		
 
-		var gru 		= new Villano(rosario)
-		var guason		= new Villano(buenosAires)
-		var venom		= new Villano(salta)
-		var ajax		= new Villano(ciudadFuria)
+		var gru 	 		 = new Villano(rosario)
+		var guason	 	 	 = new Villano(buenosAires)
+		var venom	 		 = new Villano(salta)
+		var ajax	 		 = new Villano(ciudadFuria)
 		
 		
 		var robarLuna	 	 = new Robar (gru)
@@ -28,95 +29,95 @@ describe "Test Villanos"{
 		var robarSuero 		 = new Robar (venom)
 		var robarTodo	 	 = new Robar (ajax)
 		
+		// STEVE ESTA 4 veces asignado hippie, pensar nuevos minions para cada ladron
+		var steve 			 = new Minion(0)
+		var jon 			 = new Minion(0) 
 		
 		
 	fixture{	
 		
-		gru.nuevoMinion("Steve")
-		gru.nuevoMinion("Marco")
-		gru.nuevoMinion("Polo")
+		//gru.nuevoMinion()
 		
-		venom.nuevoMinion("Steve")
-		venom.nuevoMinion("Marco")
-		venom.nuevoMinion("Polo")
+		venom.nuevoMinion()
 		
-		guason.nuevoMinion("Steve")
-		guason.nuevoMinion("Marco")
-		guason.nuevoMinion("Polo")
+		guason.nuevoMinion()
 		
-		ajax.nuevoMinion("Steve")
-		ajax.nuevoMinion("Marco")
-		ajax.nuevoMinion("Polo")
+		ajax.nuevoMinion()
 		}
 		
 		
-	method solo2peligrosos(villano){
-		2.times({villano.otorgarArma("Steve",rayoEncogedor)})
-		2.times({villano.otorgarArma("Marco",rayoEncogedor)})
-		}
-	method alimentarSteveMarco(villano){
-		villano.alimentar("Steve",200)
-		villano.alimentar("Marco",200)
-		
+	method otorgar2Armas(villano){
+		villano.nuevoMinion(steve)
+		2.times({villano.ejercitoMinions().forEach({x=> villano.otorgarArma(x,rayoEncogedor) })})
+	}
+	
+	method alimentarSteve(villano){
+		villano.ejercitoMinions().forEach({x=> villano.alimentar(x,500)})
 	}
 
-test "Gru acciona su maldad, robar la luna, por ende Steve que tenia 3 armas ahora tiene 4"{
-	self.solo2peligrosos(gru)
+
+test "Gru acciona su maldad, robar la luna, por ende steve que tenia 3 armas ahora tiene 4"{
+	self.otorgar2Armas(gru)
 	robarLuna.realizarMaldad()
-	
-	assert.equals(4,gru.buscarMinion("Steve").armas().size())
+
+	assert.equals(4,steve.armas().size())
 }
 test "Gru acciona su maldad, robar la luna, por ende la temperatura en Rosario baja"{
-	self.solo2peligrosos(gru)
+	self.otorgar2Armas(gru)
 	robarLuna.realizarMaldad()
 	
 	assert.equals(15,rosario.temperatura())
 }
 test "Gru acciona su maldad, robar la luna, por ende rosario no tiene luna"{
-	self.solo2peligrosos(gru)
+	self.otorgar2Armas(gru)
 	robarLuna.realizarMaldad()
 	
-	assert.equals([],rosario.tiene())
+	assert.equals([],rosario.objetosQueTiene())
 }
 
 test "El Guason hace su maldad,robar las piramides,por ende Buenos Aires se quedo sin la piramide"{
-	self.solo2peligrosos(guason)
+	self.otorgar2Armas(guason)
 	robarPiramides.realizarMaldad()
 	
-	assert.equals([],buenosAires.tiene())
+	assert.equals([],buenosAires.objetosQueTiene())
 }
 test "El Guason hace su maldad, entonce steve tiene 1 maldad hecha"{
-		self.solo2peligrosos(guason)
+		self.otorgar2Armas(guason)
 		robarPiramides.realizarMaldad()
-		assert.equals(1,guason.buscarMinion("Steve").mostrarMaldades())
+		assert.equals(1,steve.cantMaldades())
 	
 }
 test "venom hace su maldad, robar Suero, por ende Steve es violeta"{
-		self.solo2peligrosos(venom)
-		self.alimentarSteveMarco(venom)
+		self.otorgar2Armas(venom)
+		self.alimentarSteve(venom)
 		robarSuero.realizarMaldad()
-		assert.equals("Violeta",venom.buscarMinion("Steve").color())
+		assert.equals("Violeta",steve.color())
 	
 }
 test "ajax hace su maldad, se roba todo los items"{
-		self.solo2peligrosos(ajax)
-		self.alimentarSteveMarco(ajax)
+		self.otorgar2Armas(ajax)
+		self.alimentarSteve(ajax)
 		robarTodo.realizarMaldad()
-		assert.equals([],ciudadFuria.tiene())
+		assert.equals([],ciudadFuria.objetosQueTiene())
 	
 }
-test "El Guason hace su maldad, entonce Polo tiene 0 maldad hecha,por ende es inutil"{
-		self.solo2peligrosos(guason)
+test "El Guason hace su maldad, entonces jon tiene 0 maldad hecha,por ende es inutil"{
+		self.otorgar2Armas(guason)
+		guason.nuevoMinion(jon)
 		robarPiramides.realizarMaldad()
-		assert.equals([guason.buscarMinion("Polo")],guason.minionInutiles())
+		assert.equals([jon],guason.minionInutiles())
 	
 }
 test "El Guason se condiciono,solo steve puede hacer la maldad, entonces steve es el unico util"{
-		2.times({guason.otorgarArma("Steve",rayoEncogedor)})
+		guason.nuevoMinion(steve)
+		2.times({guason.otorgarArma(steve,rayoEncogedor)})
 		robarPiramides.realizarMaldad()
-		assert.equals(guason.buscarMinion("Steve"),guason.minionMasUtil())
+		assert.equals(steve,guason.minionMasUtil())
 	
 }
 
+test "Ajax ejecuta su maldad sin minions,debe salir error"{
+	assert.throwsException({ajax.realizarMaldad()})
+}
 
 }

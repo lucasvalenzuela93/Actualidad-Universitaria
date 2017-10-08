@@ -3,52 +3,50 @@ import Class_Armas.*
 import Class_Minion.*
 describe "Test Villanos"{
 	var gru = new Villano(null)	
+	var steve = new Minion(0)
 	var bomba = new Arma("Bombita",100)
 
 	
 fixture{	
-	gru.nuevoMinion("jon")
-	gru.nuevoMinion("ny")
-	gru.nuevoMinion("allon")
-
+	gru.nuevoMinion(steve)
+	gru.nuevoMinion()
 }
+
+test "Gru tiene 2 minions trabajando para el" {
+
+	assert.equals((gru.ejercitoMinions()).size(),2)
+}
+
+test "Steve tiene un chiche nuevo una BOMBA!... CUIDADO CON STEVE!"{
+	gru.otorgarArma(steve,bomba)
+	assert.equals(steve.armas().contains(bomba),true)
+}
+test "Gru alimenta a steve con 100 bananas, steve ya tenia 5 bananas"{
+	gru.alimentar(steve,100)
+	assert.equals( steve.bananas(),105)
+}
+test "Nivel de concentracion de steve es de 15"{
+	gru.nivelConcentracion(steve)
+	assert.equals(steve.nivelConcentracion(),15)
+}
+test "Steve tiene 2 bombas, es muy peligroso"{
+	gru.otorgarArma(steve,bomba)
+	gru.otorgarArma(steve,bomba)
 	
-test "Si se agrega otra vez a allon debe aparecer un error"{
-			assert.throwsException({ gru.nuevoMinion("allon") })
+	assert.equals(3,steve.armas().size())
 }
+test "Gru aplica en steve el suero, por ende es poderoso"{
+	gru.aplicarSuero(steve)
 
-test "Gru tiene a Jon,ny,Allon en su ejercito de minions, por ende allon trabaja para gru" {
-
-	assert.equals((gru.mostrarMinions()).size(),3)
-}
-
-test "Allon tiene un chiche nuevo una BOMBA!... CUIDADO ALLON!"{
-	gru.otorgarArma("allon",bomba)
-	assert.equals((gru.buscarMinion("allon")).armas().size(),2)
-}
-test "Gru alimenta a jon con 100 bananas"{
-	gru.alimentar("jon",100)
-	assert.equals( (gru.buscarMinion("jon")).cantBananas(),110)
-}
-test "Nivel de concentracion de Ny es de 20"{
-	gru.nivelConcentracion("ny")
-	assert.equals((gru.buscarMinion("jon")).nivelConcentracion(),20)
-}
-test "Allon tiene 2 bombas, es muy peligroso"{
-	gru.otorgarArma("allon",bomba)
-	gru.otorgarArma("allon",bomba)
-	gru.peligroso("allon")
+	gru.peligroso(steve) 
 	assert.that(true)
 }
-test "Gru aplica en Jon,ny Allon el suero, por ende es(son) muy poderoso"{
-	gru.aplicarSuero("jon")
-	gru.aplicarSuero("ny")
-	gru.aplicarSuero("allon")
-	gru.peligroso("allon")
+test "Gru aplica en steve el suero, por ende es Violeta"{
+	gru.aplicarSuero(steve)
+
+	steve.color() == "Violeta" 
 	assert.that(true)
 }
-test "Gru aplica suero en jon. si buscamos x arma congelante salen ellos 2"{
-	gru.aplicarSuero("jon")
-	assert.equals(gru.minionsConArma("rayoCongelante").size(),2)
-}
+
+
 }

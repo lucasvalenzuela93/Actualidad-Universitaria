@@ -1,87 +1,107 @@
 class Minion {
-	var nombre=""
-	var color=""
+
+	var color="Amarillo"
 	var bananas=0
-	var armamento=[]
+	var listaArmas=[]
 	var maldades=0
 
-
-
-	
-	constructor(_nombre,_color,_bananas,_armamento){
-		nombre=_nombre
-		color=_color
+	constructor(_bananas){
 		bananas=_bananas
-		armamento.add(_armamento)
-		
 	}
-	//Muestra nombre del Minion
-	method nombre()=nombre
-	
-	//Muestra color del minion
+		
+	//Color del minion
 	method color()=color
 	
-	//Muestra cantidad de bananas
-	method cantBananas()=bananas
+	// Fija color
+	method color(_color){color=_color}
 	
-	//Muestra las armas del minion
-	method armas()=armamento
+	//Cantidad de bananas
+	method bananas()=bananas
+	
+	//Fijar bananas en X
+	method bananas(x){ bananas = x}
+	
+	//Armas del minion
+	method armas()=listaArmas
 	
 	//Hacer que coma 1 banana
-	method comerBananas(){ bananas-=1}
+	method comerBanana(){ 
+		if(bananas>0){
+		bananas-=1
+		}else{
+			bananas=0
+		}
+	}
 	
 	//Agregar bananas 
-	method agregarBananas(_bananas){bananas+=_bananas}
+	method agregarBananas(_bananas){
+		
+		bananas+=_bananas
+	
+	}
 	
 	//Agregar que hizo una maldad
 	method agregarMaldad(){
 		maldades+=1
 	}
-	// Mostrar Maldad
-	method mostrarMaldades()= maldades
+	// Cantidad de maldades
+	method cantMaldades()= maldades
 	
 	
 	//Agregar armas 
 	method agregarArmas(arma){
-		armamento.add(arma)
+		
+		self.armas().add(arma)
+	
 	}
 	
 	//Preguntar si tiene un arma
-	/** la constante nombreArma debe ser un string */
 	method tieneArma(nombreArma){
-		return self.armas().map({x=>x.nombre()}).contains(nombreArma)}
+		
+		return self.armas().map({x=>x.nombre()}).contains(nombreArma)
+		
+	}
 	
 	//Preguntar si es peligroso 
-	method peligroso()= armamento.size()>2||color==1
+	method peligroso()= self.armas().size()>2||color==1
 	
 	//Hacer que tome el suero
 	method beberSuero(){
 		if(color=="Amarillo"){
-			color="Violeta"
-			self.comerBananas()
-			armamento=[]
-		}else{
-			if(color=="Violeta"){
-				color="Amarillo"
-				self.comerBananas()
+			
+			self.color("Violeta")
+			self.comerBanana()
+			listaArmas=[]
+			
+			}else{
+				
+		if(color=="Violeta"){
+			
+			self.color("Amarillo")
+			self.comerBanana()
+			
 			}		
 		}
 	}
-	/** si es violeta y toma el suero se vuelve 
-		verde y esta muy hambriento se come 100 bananas 	
+	/** si es violeta y toma el suero se vuelve verde por falta de potancio,
+		entonces come 100 bananas y su nivel de concentracion es 0.
 		Cuando vuelve a tomar el suero,tarda unos dias en volverse amarillo
 		durante la transicion se vuelve loco por las tener bananas, es por eso, 
 		que obtiene 1000 bananas.  
 
+	(Si se testea, saldra una falla ya que un minion violeta pasa a ser verde.)
+
+	La solucion seria:
+	
 	method beberSuero(){
 		if(color=="Amarillo"){
 			color="Violeta"
-			self.comerBananas()
-			armamento=[]
+			self.comerBanana()
+			listaArmas=[]
 		}else{
 			if(color=="Violeta"){
 				color="Verde"
-				100.times({self.comerBananas()})
+				100.times({self.comerBanana()})
 			}else{
 				if(color=="Verde"){
 				color="Amarillo"
@@ -91,7 +111,9 @@ class Minion {
 		
 		}
 	}
-	Esto es Polimorfismo, el objeto cambia de estados amarillo, verde, violeta, 
+
+	
+	Esto es Abstraccion, el objeto cambia de estados amarillo, verde, violeta, 
 	pero aun asi sigue siendo un minion que puede robar y congelar ciudades, ser peligroso etc.
 	
 
@@ -99,13 +121,22 @@ class Minion {
 	 Pero todas las demas tareas, metodos o lo que haga sera las mismas
 	 */
 	
-	//Preguntar su nivel de concentracion
+	
+	// Poder del arma mas Poderosa
+	method poderArmaMasPoderosa(){
+		if (self.armas().isEmpty()){
+			return 0
+		}else{
+		return self.armas().max({arma=> arma.poder() }).poder()
+	}
+	}
+	//Nivel de concentracion
 	method nivelConcentracion(){
-		if(color=="Amarillo"){
-			return self.cantBananas()+ (armamento.max({arma=> arma.poder()})).poder()
+		if(self.color()=="Amarillo"){
+			return self.bananas()+ self.poderArmaMasPoderosa()
 		}else
-			if(color=="Violeta"){
-				return self.cantBananas()
+			if(self.color()=="Violeta"){
+				return self.bananas()
 		}else{
 			return 0
 		}

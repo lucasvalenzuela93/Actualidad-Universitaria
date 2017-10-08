@@ -8,110 +8,65 @@ class UserException inherits wollok.lang.Exception {
 class Villano {
 	var ejercitoMinion= []
  	var ciudad
- 	var rayoCongelante1 =new Arma("rayoCongelante",10)
+ 	var rayoCongelante =new Arma("rayoCongelante",10)
+ 	
 
 	constructor(_ciudad){
 		ciudad=_ciudad
 	}
 	
-	//Muestra ciudad donde vive 
+	//Ciudad donde vive 
 	method viveEn()=ciudad
 	
-	//Muestra todos los minions que trabajan   
-	method mostrarMinions()= ejercitoMinion
-
-	//Muestra una coleccion de minions que tengan un arma determinada
-	/** Busca mediante el nombre del arma(String), no por el arma en si */
-	method minionsConArma(arma) {
-		return self.mostrarMinions().filter({minion=> minion.tieneArma(arma)})
+	//Todos los minions que trabajan   
+	method ejercitoMinions()= ejercitoMinion
+	
+	//crear un Nuevo minion 
+	method nuevoMinion(){
+	var soldado = new Minion(5)
+	self.otorgarArma(soldado,rayoCongelante)
+	ejercitoMinion.add(soldado)
 	}
-	//Muestra una coleccion de minion que tengan el nivel de concentracion
-	method minionsConcentracionMayor(nivel){
-		return self.mostrarMinions().filter({minion=> minion.nivelConcentracion() > nivel})
-	}
-	
-	//Muestra una coleccion de minions peligroso... Cuidado!!
-	method minionsPeligrosos(){
-		return self.mostrarMinions().filter({minion=> minion.peligroso()})
-	}
-	
-	
-	//Este es util para cuando se hace una maldad del tipo congelar
-	/** con el intersection no salia ,entonces se improviso con un filter =) */
-	/* 
-		self.minionsConcentracionMayor(x).intersection({self.minionsConArma("rayoCongelante")})
- 	*/
-	method requisitosCongelarConNivel(nivelConcentracion){
-		var cumplidores=[]
-		
-		cumplidores= self.minionsConcentracionMayor(nivelConcentracion)
-		cumplidores.filter({x=> self.minionsConArma("rayoCongelante").contains(x)})
-		return cumplidores
-	}
-	
-	//idem pero para las maldades del tipo Robar
-	
-	method requisitosRobarConNivel(nivelConcentracion){
-		var cumplidores=[]
-		cumplidores= self.minionsConcentracionMayor(nivelConcentracion)
-		cumplidores.filter({x=> self.minionsPeligrosos().contains(x)})
-		return cumplidores
-	}
-	
-	//Muestra un minion
-	/** Busca al minion mediante el nombre(Un String)*/
-	method buscarMinion(minion)= (self.mostrarMinions().filter({_minion=> _minion.nombre()==minion})).first()
-	
-	// Saber si un minion ya existe
-	method yaExisteMinion(minion)=self.mostrarMinions().any({x=> x.nombre()== minion})
-	
-	//Agrega un minion a su ejercito, su manera de identificarlo es mediante su nombre
-	/**La condicion de tener un nuevo minion es que no exista otro con el mismo nombre,
-	ya que si existen minions con el mismo nombre no se podrian identificar */
-	method nuevoMinion(nombre){
-		if(self.yaExisteMinion(nombre)){
-		throw new UserException("El minion ya existe, usar buscarMinion("+'"'+nombre+'"'+") o intentar con otro nombre ")
-		}else{
-		const minion = new Minion(nombre,"Amarillo",10,rayoCongelante1)
+	// Incorpora un minion
+	method nuevoMinion(minion){
+		minion.bananas(5)
+		self.otorgarArma(minion,rayoCongelante)
 		ejercitoMinion.add(minion)
-		}
 	}
 
-	//Agregar un arma a un minion
-	/** El modo de ingreso, es que minion sea el nombre(String),
-	y el arma sea un objecto de la class Armas */
+	//Dar un arma a un minion
 	method otorgarArma(minion,arma){ 
 		
-		(self.buscarMinion(minion)).agregarArmas(arma)
+		minion.agregarArmas(arma)
 	}
 	
 	//Dar mas bananas a un minion
-	/** se debe ingresar el nombre del minion(String) y la cantidad de bananas */
 	method alimentar (minion,bananas){
-			
-		(self.buscarMinion(minion)).agregarBananas(bananas)
+		
+		minion.agregarBananas(bananas)
 	}
 
-	//Mostrar el nivel de concentracion de 1 minion
-	/** El modo de consulta es ingresando el nombre del minion(String) */
+	//Nivel de concentracion de 1 minion
 	method nivelConcentracion(minion){	
 		
-		return (self.buscarMinion(minion)).nivelConcentracion()
+		return minion.nivelConcentracion()
 	}
-	// Mostrar si un minion es peligroso
-	/**El modo de consulta es ingresando el nombre del minion(String) */
+	
+	// El minion es peligroso?
 	method peligroso(minion){	
 		
-		return (self.buscarMinion(minion)).peligroso()
+		return minion.peligroso()
 	}
 
 	// Hacer que un minion tome el suero
-	/**El modo de consulta es ingresando el nombre del minion(String) */
 	method aplicarSuero(minion){
-		return (self.buscarMinion(minion)).beberSuero()
+		minion.beberSuero()
 	}
-	method minionMasUtil()=	self.mostrarMinions().max({x=> x.mostrarMaldades()})
-	method minionInutiles()=self.mostrarMinions().filter({x=> x.mostrarMaldades() < 1})
+	//El minion mas util
+	method minionMasUtil()=	self.ejercitoMinions().max({x=> x.cantMaldades()})
+	
+	//Los minions mas inutiles
+	method minionInutiles()=self.ejercitoMinions().filter({x=> x.cantMaldades() < 1})
 	
 }
 

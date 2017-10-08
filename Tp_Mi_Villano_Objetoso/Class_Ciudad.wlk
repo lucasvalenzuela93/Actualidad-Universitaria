@@ -13,17 +13,12 @@ class Ciudad {
 	temperatura-=t
 	}
 	
-	method tiene()=maravillas
+	method objetosQueTiene()= maravillas
 
 	method seRobaron(_tiene){
 	maravillas.remove(_tiene)
 	}
-	method mostrar(algoQueTiene){
-		if(maravillas.contains(algoQueTiene)){
-			return algoQueTiene
-		}else{
-			return null
-		}
+	method tieneMaravilla(algoQueTiene)= maravillas.contains(algoQueTiene)
+	
 	}
-
-}
+	
