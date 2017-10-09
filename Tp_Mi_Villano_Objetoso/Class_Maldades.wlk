@@ -1,7 +1,3 @@
-import Class_Villanos.*
-import Class_Armas.*
-import Class_Minion.*
-import Objetos_Robar.*
 
 class Maldad {
 	

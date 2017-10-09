@@ -1,4 +1,4 @@
-import Objetos_Robar.*
+
 class Ciudad {
 	var temperatura
 	var maravillas

@@ -1,8 +1,6 @@
 import Class_Maldades.*
-import Class_Villanos.*
-import Class_Armas.*
 import Objetos_Robar.*
-
+import Class_Armas.*
 class Robar inherits Maldad{
 	
 	// Minions con concentracion

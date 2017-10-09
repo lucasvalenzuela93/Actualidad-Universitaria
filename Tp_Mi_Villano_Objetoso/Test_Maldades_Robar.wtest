@@ -29,15 +29,14 @@ describe "Test Villanos"{
 		var robarSuero 		 = new Robar (venom)
 		var robarTodo	 	 = new Robar (ajax)
 		
-		// STEVE ESTA 4 veces asignado hippie, pensar nuevos minions para cada ladron
+		
 		var steve 			 = new Minion(0)
 		var jon 			 = new Minion(0) 
 		
 		
 	fixture{	
 		
-		//gru.nuevoMinion()
-		
+				
 		venom.nuevoMinion()
 		
 		guason.nuevoMinion()

@@ -1,6 +1,6 @@
 import Class_Minion.*
 import Class_Armas.*
-import Class_Ciudad.*
+
 
 class UserException inherits wollok.lang.Exception {
 	constructor(_mensaje) = super(_mensaje)
