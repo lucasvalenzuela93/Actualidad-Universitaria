@@ -1,5 +1,5 @@
 import estudiante.*
-import Actitudes.*
+
 
 describe "Test Actualidad Universitaria"{
 	
@@ -11,9 +11,9 @@ test "Cachito tiene un recuerdo que aprobo"{
 	cachito.recuerdoAprobo()
 	assert.that(true)
 } 
-test "Cachito aumenta su motivacion en 10%"{
+test "Cachito aumenta su motivacion en 10"{
 	cachito.motivacion(10)
-	assert.equals(16.5,cachito.motivacion())
+	assert.equals(25,cachito.motivacion())
 }
 test "Cachito cambia su actitud"{
 	cachito.actitudDestacada() != cachito.cambiarActitud()
@@ -23,7 +23,7 @@ test "Cachito no es un buen profesional"{
 	assert.equals(false,cachito.buenProfesional())
 	
 }
-test "Si cachito aumenta su motivacion al 120% podra ser un buen profesional"{
+test "Si cachito aumenta su motivacion podra ser un buen profesional"{
 	cachito.motivacion(120)
 	cachito.buenProfesional()
 	assert.that(true)
@@ -48,10 +48,4 @@ test "Pedrito que no tiene experiencia, vive un ascenso de su equipo, es un camb
 	cachito.actitudDestacada() != "buenaonda"
 	assert.that(true)
 }
-//test "Si sacan todas las actitudes menos 1, debe salir error cuando cachito quiera cambiar de actitud"{
-//	personalidades.actitudesFrecuentes().clear()
-//	personalidades.actitudesFrecuentes().add("buenaonda")
-//	
-//	assert.throwsException({cachito.cambiarActitud()})
-//}
 }

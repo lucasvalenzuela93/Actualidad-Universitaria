@@ -1,8 +1,8 @@
 import persona.*
-import Actitudes.*
+
 class Estudiante inherits Persona {
 	var actitudDestacada=0
-	var actitudesPosibles=actitudes.actitudes()
+	var actitudesPosibles=["buenaonda","predispuesto", "indiferente","solidario","generoso","malaonda"]
 	var motivacion=0
  	var recuerdoSignificativo=[]
  
@@ -18,7 +18,10 @@ class Estudiante inherits Persona {
 
 //TODO: Actitud Destacada
  	method actitudDestacada()=actitudDestacada
- 	method actitudDestacada(_actitud){actitudesPosibles.add(_actitud)}
+ 	method actitudDestacada(_actitud){
+ 		actitudesPosibles.add(_actitud)
+ 		actitudDestacada=_actitud
+ 	}
 	
 	//Very dificult hacerlo como pide, me pa que no se puede hacer recursividad aca, lo intente :( ... Lo cambie a que tome una actitud aleatoria :) 
 	method cambiarActitud(){
@@ -38,14 +41,14 @@ class Estudiante inherits Persona {
  //TODO: Motivacion
  	 method motivacion()= motivacion
  	 method motivacion(_cantidad){
- 		motivacion+= motivacion*_cantidad/100
+ 		motivacion+= _cantidad
  	}
 	
 	
 
 		
 //TODO: Consultas
- 	method recuerdoAprobo()= recuerdoSignificativo.any({recuerdo=> recuerdo.take(6) == "aprobe"})
+ 	method recuerdoAprobo()= recuerdoSignificativo.any({recuerdo=> recuerdo.startsWith("aprobe")})
  	//esto para la parte donde pide si tiene la palabra aprobe method agresionGraveDeFamiliar(unaAgresion){
 	//return familia.contains(unaAgresion.agresor()) and unaAgresion.esGrave() 
  	

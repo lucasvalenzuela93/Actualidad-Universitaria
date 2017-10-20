@@ -2,23 +2,18 @@ import ContextoSocial.*
 describe "Test Contextos"{
 	
 	
-	var aumentoSalarial = new Contexto ("aumento salarial",30)
-	var presupuesto = new Contexto ("presupuesto",2000.0)
-	var represion = new Contexto ("represion de laprotesta social",1.18)
-	var inflacion = new Contexto ("inflacion",35.5)
-	
 	var universidad = new ContextoHipotetico()
-	
+
 	fixture{
-		universidad.contexto(aumentoSalarial)
-		universidad.contexto(presupuesto)
-		universidad.contexto(represion)
-		universidad.contexto(inflacion)
+		universidad.contexto("aumento salarial",30)
+		universidad.contexto("presupuesto",2000.0)
+		universidad.contexto("represion de laprotesta social",1.18)
+		universidad.contexto("inflacion",35.5)
 	}
-test "Se agrega al contexto de la universidad, el aumento salarial,presupuesto,represion e inflacion"{
-	assert.equals([aumentoSalarial,presupuesto,represion,inflacion],universidad.contexto())
+test "Se agrega al contexto de la universidad, el aumento salarial,presupuesto,represion e inflacion,por ende son 4 contextos"{
+	assert.equals(4 , universidad.contexto().size() )
 }
 test "El indice del contexto Inflacion es 35,5"{
-	assert.equals(35.5 , universidad.nivelContexto(inflacion))
+	assert.equals(35.5 , universidad.indicador("inflacion"))
 }
 }

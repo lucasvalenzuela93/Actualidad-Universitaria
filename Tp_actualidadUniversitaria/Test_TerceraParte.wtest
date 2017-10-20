@@ -1,0 +1,56 @@
+import ContextoSocial.*
+import estudiante.*
+import docente.*
+
+describe "Test Contextos"{
+	
+	
+	var universidad = new ContextoHipotetico()
+	var pensamientoHector = new ContextoHipotetico()
+	
+	var cachito = new Estudiante ("Estanislao Pereira", "buenaonda", 15, ["conoci la facultad", "aprobe mi primer examen", "hice un hola mundo que funcionaba", "conoci a julia"])
+	var pedrito = new Estudiante ("Pedro Pedrito","buenaonda",10,[""])
+	var carlitos = new Estudiante ("Carlitos Menum","indiferente",0,[""])
+	
+	var hector = new Docente("Hector",[cachito,pedrito,carlitos],universidad,pensamientoHector)
+	
+	fixture{
+		universidad.contexto("aumento salarial",20)
+		universidad.contexto("presupuesto",2000.0)
+		universidad.contexto("represion de la protesta social",1.18)
+		universidad.contexto("inflacion",35.5)
+		
+		pensamientoHector.contexto("aumento salarial",10)
+
+		
+	}
+
+test "Hector no le alcanza el sueldo"{
+	assert.equals(true,hector.noAlcanzaSueldo())
+}	
+test "Hector esta en paro, por ende, pedrito tiene paro en su recuerdo"{
+	hector.enParo()
+	assert.equals(true,pedrito.recuerdoSignificativo().contains("paro"))
+}
+test "Carlitos,es indiferente, a pesar que hizo el paro hector, no tiene experiencia"{
+	hector.enParo()
+	assert.equals(false,carlitos.recuerdoSignificativo().contains("paro"))
+}
+test "Hector habla sobre la movilizacion, carlitos tiene un cambio en su personalidad"{
+	hector.movilizacion()
+	assert.equals(true,carlitos.actitudDestacada()!="buenaonda")
+}
+test "Hector se queja del bajo presupuesto, pedrito esta estudiando en malas condiciones"{
+	hector.quejarseInstalaciones()
+	assert.equals(true,pedrito.recuerdoSignificativo().contains("Estudio en malas condiciones"))
+}
+test "Hector decide que sea un dia especial, carlitos es Ing Carlitos Menum"{
+	hector.unDiaEspecial()
+	assert.equals("ING Carlitos Menum",carlitos.nombre())
+}
+test "Hector quiere saber si alguno sera bueno dsp de todo lo ocurrido, y existe uno que es el carlito, gracias a su indiferencia"{
+	hector.algunAlumnoSeraBueno()
+	assert.that(true)
+}
+
+}

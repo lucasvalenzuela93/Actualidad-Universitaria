@@ -1,34 +1,17 @@
-class Contexto {
-	var situacion=0
-	var nivel=0
-	
-	constructor(_situacion,_nivel){
-		situacion=_situacion
-		nivel=_nivel
-	}
-	
-	method situacion(){return situacion}
-	method situacion(_situacion){
-		situacion=_situacion
-	}
-	
-	method nivel(){return nivel}
-	method nivel(_situacion){
-		situacion=_situacion
-	}
-	
-}
-
-//Devuelve el nivel de un determinado contexto
 class ContextoHipotetico {
-	var contextoHipotetico=[]
 	
-	method contexto(){return contextoHipotetico}
-	method contexto(_contexto){
-		contextoHipotetico.add(_contexto)
+	var contexto=[]
+	method contexto(_contexto,indicador){
+		//Si ya existia, que lo borre (enrealidad lo pisa)
+		contexto = contexto.filter({x => x.first()!=_contexto})
+		contexto.add([_contexto,indicador])
 	}
+	//Contexto
+	method contexto()=contexto
 	
-	method nivelContexto(_contexto){
-		return _contexto.nivel()
+	// Segun el contexto(string), que devuelva el indicador
+	method indicador(_contexto){
+
+		return contexto.filter({x => x.contains(_contexto)}).flatten().last()
 	}
 }

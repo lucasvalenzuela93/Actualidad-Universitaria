@@ -1,29 +1,115 @@
 import persona.*
 import ContextoSocial.*
+
 class Docente inherits Persona {
 	var alumnos=[]
-	var contexto
-	var acciones=[]
+	var momentoActual
+	var perspectiva
+	constructor(_nombre,_alumnos,momentoActualHipotetico,momentoActualIdeal)=super(_nombre){
+		alumnos.addAll(_alumnos)
+		momentoActual=momentoActualHipotetico
+		perspectiva = momentoActualIdeal
+	}		
 	
-	constructor(_nombre,_contexto,_accion)=super(_nombre){
-		nombre=_nombre
-		contexto=_contexto
-		acciones=_accion
+//TODO GETTER SETTER
+	method alumnos()=alumnos
+	method alumnos(alumno){
+		alumnos.add(alumno)
 	}
 	
-	method acciones()=acciones
-	method acciones(_accion){acciones.add(_accion)}
+	method momentoActual()=momentoActual
+	method momentoActual(_momentoActual){
+		momentoActual=_momentoActual
+	}
+	method perspectiva()=perspectiva
+	method perspectiva(_momentoActual){
+		perspectiva=_momentoActual
+	}
+
+//TODO: momentoActuales
+
+	method inflacionMayorAlAumento()= perspectiva.indicador("aumento salarial")< momentoActual.indicador("inflacion") 
+
+	method noAlcanzaSueldo()= momentoActual.indicador("aumento salarial") > 	perspectiva.indicador("aumento salarial")
+
 	
-	method alumnos()=alumnos
-	method alumnos(_alumno){alumnos.add(_alumno)}
-	
-	method unDiaEspecial(_contexto){
-		if (self.estaDeHumor(_contexto)){
-			 alumnos.map({_alumno=>_alumno.motivacion() === _contexto.nivel()})
+
+//TODO:Suceso que le pasa a los Alumnos
+method suceso(suceso,motivacion){
+	alumnos.forEach({alumno=> 
+				alumno.experiencias(suceso,motivacion)
+	})
+}
+//TODO:ACCIONES
+	method enParo(){
+	if(self.noAlcanzaSueldo()){
+				self.suceso("paro",(-20))
+				momentoActual.indicador("aumento salarial")
 		}
 	}
 	
-	method estaDeHumor(_contexto){
-		return _contexto.nivel() < 20
+	method movilizacion(){
+		if(momentoActual.indicador("represion de la protesta social")>1||self.inflacionMayorAlAumento()){
+				alumnos.forEach({alumno=> 
+					alumno.experiencias("Movilizacion",15)
+					alumno.cambiarActitud()
+				})
+		}
 	}
+		
+	method quejarseInstalaciones(){
+		if(momentoActual.indicador("presupuesto") <2500){
+				self.suceso("Estudio en malas condiciones",(-10))
+		}
+	}
+	method clasePublica(){
+		self.suceso("Clase Publica",100)
+	}
+	
+	method unDiaEspecial(){
+		alumnos.forEach({alumno=>
+				alumno.cambiarActitud()
+				alumno.experiencias("aprobe TODO!",1000)
+				alumno.titulo("ING ")
+		})
+	}
+	method algunAlumnoSeraBueno(){
+		self.enParo()
+		self.quejarseInstalaciones()
+		return alumnos.any({unAlumno=> unAlumno.buenProfesional()})
+	}
+	
+
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	method acciones()=acciones
+//	method acciones(_accion){acciones.add(_accion)}
+//	
+//	method alumnos()=alumnos
+//	method alumnos(_alumno){alumnos.add(_alumno)}
+//	
+//	method unDiaEspecial(_momentoActual){
+//		if (self.estaDeHumor(_momentoActual)){
+//			 alumnos.map({_alumno=>_alumno.motivacion() === _momentoActual.nivel()})
+//		}
+//	}
+//	
+//	method estaDeHumor(_momentoActual){
+//		return _momentoActual.nivel() < 20
+//	}
+
