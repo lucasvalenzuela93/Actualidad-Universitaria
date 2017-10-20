@@ -54,7 +54,7 @@ class Estudiante inherits Persona {
  
  	method experiencias(_experiencia,_motivacion){
  		
- 		if (self.actitudDestacada() !="indiferente" || motivacion>0){
+ 		if (self.actitudDestacada() !="indiferente" || motivacion<0){
  				self.recuerdoSignificativo(_experiencia)
  				self.motivacion(_motivacion)
  		}

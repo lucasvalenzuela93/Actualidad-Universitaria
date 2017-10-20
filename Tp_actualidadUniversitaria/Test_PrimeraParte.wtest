@@ -1,0 +1,57 @@
+import estudiante.*
+import Actitudes.*
+
+describe "Test Actualidad Universitaria"{
+	
+	var cachito = new Estudiante ("Estanislao Pereira", "buenaonda", 15, ["conoci la facultad", "aprobe mi primer examen", "hice un hola mundo que funcionaba", "conoci a julia"])
+	var pedrito = new Estudiante ("Pedro Pedrito","buenaonda",10,[""])
+	var carlitos = new Estudiante ("Carlitos Menum","indiferente",0,[""])
+	
+test "Cachito tiene un recuerdo que aprobo"{
+	cachito.recuerdoAprobo()
+	assert.that(true)
+} 
+test "Cachito aumenta su motivacion en 10%"{
+	cachito.motivacion(10)
+	assert.equals(16.5,cachito.motivacion())
+}
+test "Cachito cambia su actitud"{
+	cachito.actitudDestacada() != cachito.cambiarActitud()
+	assert.that(true)
+}
+test "Cachito no es un buen profesional"{
+	assert.equals(false,cachito.buenProfesional())
+	
+}
+test "Si cachito aumenta su motivacion al 120% podra ser un buen profesional"{
+	cachito.motivacion(120)
+	cachito.buenProfesional()
+	assert.that(true)
+}
+test "Si carlitos es indiferente no se agrega una experiencia"{
+
+	carlitos.experiencias("Resucitar",100)
+
+	assert.equals(false,cachito.recuerdoSignificativo().contains("Resucitar"))
+}
+
+test "Si carlitos es cambia su actitud, de todas formas no se agrega una experiencia"{
+	carlitos.cambiarActitud()
+	carlitos.experiencias("Resucitar",100)
+
+	assert.equals(false,cachito.recuerdoSignificativo().contains("Resucitar"))
+}
+
+
+test "Pedrito que no tiene experiencia, vive un ascenso de su equipo, es un cambio radical, le cambia su actitud"{
+	pedrito.experiencias("ascenso de su equipo",100)
+	cachito.actitudDestacada() != "buenaonda"
+	assert.that(true)
+}
+//test "Si sacan todas las actitudes menos 1, debe salir error cuando cachito quiera cambiar de actitud"{
+//	personalidades.actitudesFrecuentes().clear()
+//	personalidades.actitudesFrecuentes().add("buenaonda")
+//	
+//	assert.throwsException({cachito.cambiarActitud()})
+//}
+}
