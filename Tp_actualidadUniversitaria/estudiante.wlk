@@ -23,7 +23,7 @@ class Estudiante inherits Persona {
  		actitudDestacada=_actitud
  	}
 	
-	//Very dificult hacerlo como pide, me pa que no se puede hacer recursividad aca, lo intente :( ... Lo cambie a que tome una actitud aleatoria :) 
+	
 	method cambiarActitud(){
 		actitudDestacada=  actitudesPosibles.get(0.randomUpTo(actitudesPosibles.size()-1))
 		return actitudDestacada
@@ -48,9 +48,9 @@ class Estudiante inherits Persona {
 
 		
 //TODO: Consultas
- 	method recuerdoAprobo()= recuerdoSignificativo.any({recuerdo=> recuerdo.startsWith("aprobe")})
- 	//esto para la parte donde pide si tiene la palabra aprobe method agresionGraveDeFamiliar(unaAgresion){
-	//return familia.contains(unaAgresion.agresor()) and unaAgresion.esGrave() 
+ 	
+	method recuerdoAprobo()= recuerdoSignificativo.any({recuerdo=> recuerdo.startsWith("aprobe")})
+
  	
  	method buenProfesional()= self.recuerdoAprobo()&& motivacion > 30
  	
