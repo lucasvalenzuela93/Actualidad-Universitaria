@@ -30,7 +30,7 @@ class Docente inherits Persona {
 
 	method inflacionMayorAlAumento()= perspectiva.indicador("aumento salarial")< momentoActual.indicador("inflacion") 
 
-	method noAlcanzaSueldo()= momentoActual.indicador("aumento salarial") > 	perspectiva.indicador("aumento salarial")
+	method noAlcanzaSueldo()= momentoActual.indicador("aumento salarial") > perspectiva.indicador("aumento salarial")
 
 	
 

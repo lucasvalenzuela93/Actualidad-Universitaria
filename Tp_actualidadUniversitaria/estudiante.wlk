@@ -6,8 +6,6 @@ class Estudiante inherits Persona {
 	var motivacion=0
  	var recuerdoSignificativo=[]
  
- 	
-  
  	constructor(_nombre, _actitud, _motivacion, _recuerdo)= super(_nombre){
  		actitudDestacada=_actitud
  		motivacion=_motivacion
