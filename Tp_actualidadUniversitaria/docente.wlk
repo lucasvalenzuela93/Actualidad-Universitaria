@@ -81,35 +81,3 @@ method suceso(suceso,motivacion){
 	
 
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	method acciones()=acciones
-//	method acciones(_accion){acciones.add(_accion)}
-//	
-//	method alumnos()=alumnos
-//	method alumnos(_alumno){alumnos.add(_alumno)}
-//	
-//	method unDiaEspecial(_momentoActual){
-//		if (self.estaDeHumor(_momentoActual)){
-//			 alumnos.map({_alumno=>_alumno.motivacion() === _momentoActual.nivel()})
-//		}
-//	}
-//	
-//	method estaDeHumor(_momentoActual){
-//		return _momentoActual.nivel() < 20
-//	}
-
